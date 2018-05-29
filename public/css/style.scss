@@ -13,9 +13,7 @@ body {
 
 .header {
     height: 100px;
-    margin-bottom: 5px;
-    display: flex;
-    align-items: center;
+    border: 1px solid white;
 }
 
 .footer {
@@ -23,22 +21,42 @@ body {
     height: 500px;
 }
 
+.content {
+    height: 800px;
+    background-color: white;
+}
+
 .menu_button {
     margin-right: 10px;
     text-decoration: none;
-    font-family: sans-serif;
+    font-family: monospace sans-serif;
+    font-size: 11px;
     border: 1px solid $b_background;
-    display: inline-block;
     text-align: center;
     color: $menu_text_color;
     background-color: $b_background;
     min-width: 150px;
     min-height: 50px;
-    &:hover {
-        background-color: $menu_text_color;
-        color: $menu_background;
-    }
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition:.5s;
     &:focus {
         outline: 0;
+    }
+    &:active {
+        transition: 0s;
+        background-color: $menu_text_color;
+        color: $b_background;
+    }
+    cursor: pointer;
+}
+
+.signin {
+    background-color: $menu_text_color;
+    color: $b_background;
+    &:hover {
+        background-color: #d2d5da;
     }
 }

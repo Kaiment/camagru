@@ -9,9 +9,7 @@ body {
 
 .header {
   height: 100px;
-  margin-bottom: 5px;
-  display: flex;
-  align-items: center;
+  border: 1px solid white;
 }
 
 .footer {
@@ -19,25 +17,46 @@ body {
   height: 500px;
 }
 
+.content {
+  height: 800px;
+  background-color: white;
+}
+
 .menu_button {
   margin-right: 10px;
   text-decoration: none;
-  font-family: sans-serif;
+  font-family: monospace sans-serif;
+  font-size: 11px;
   border: 1px solid #000000;
-  display: inline-block;
   text-align: center;
   color: #ffffff;
   background-color: #000000;
   min-width: 150px;
   min-height: 50px;
-}
-
-.menu_button:hover {
-  background-color: #ffffff;
-  color: #2c2c2c;
+  -o-transition: .5s;
+  -ms-transition: .5s;
+  -moz-transition: .5s;
+  -webkit-transition: .5s;
+  transition: .5s;
+  cursor: pointer;
 }
 
 .menu_button:focus {
   outline: 0;
+}
+
+.menu_button:active {
+  transition: 0s;
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.signin {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.signin:hover {
+  background-color: #d2d5da;
 }
 /*# sourceMappingURL=style.css.map */

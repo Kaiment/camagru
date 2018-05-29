@@ -1,8 +1,5 @@
 <?php
 
-$title = 'yo';
-$msg = 'Yo';
-
 require('view/header.php');
 
 
