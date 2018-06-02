@@ -1,9 +1,9 @@
 <?php
 
 abstract class Controller {
-    private $model;
-    private $table;
+    protected $_model;
+    protected $_table;
 
-    public function getModel() { return ($model); }
-    public function getTable() { return ($table); }
+    public function getModel() { return ($_model); }
+    public function getTable() { return ($_table); }
 }

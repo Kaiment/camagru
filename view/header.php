@@ -6,9 +6,23 @@
         <link rel='stylesheet' type='text/css' href='/public/css/style.css' />
     </head>
     <body>
-        <nav class='navbar'>
-            <div>
-                <a href='/view/login.php'><button class='menu_button'>LOG IN</button></a></li>
-                <a href='/view/signin.php'><button class='menu_button signin'>SIGN IN</button></a>
+        
+        <nav class='container-fluid header'>
+            <div class='row no-gutters'>
+                <div class='col-lg-2'>
+                    <a href='../index.php'><img class='logo_main' src='../public/img/logo_main.png'></a>
+                </div>
+                <?php session_start(); if (!isset($_SESSION['loggued'])): ?>
+                    <div class='col-lg-2 offset-lg-8'>
+                        <a href='/view/login.php'><button class='menu_button'>LOG IN</button></a></li>
+                    </div>
+                <?php else: ?>
+                    <div class='col-lg-2 offset-lg-6'>
+                        <a href='view/account.php'><button class='menu_button'>MY ACCOUNT</button></a>
+                    </div>
+                    <div class='col-lg-2'>
+                        <a href='/controller/logout.php'><button class='menu_button'>LOG OUT</button></a>
+                    </div>
+                <?php endif ?>
             </div>
         </nav>

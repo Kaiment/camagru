@@ -5,26 +5,43 @@ require_once('../model/Model_users.class.php');
 
 class Controller_users extends Controller {
     public function __construct() {
-        $this->model = new Model_users();
-        $this->table = 'users';
+        $this->_table = 'users';
+        $this->_model = new Model_users($this->_table);
     }
 
-    public function register_user($login, $password) {
+    // Redirect to a page with associative array keys and values as $_GET
+    public function redirect_get($path, array $data) {
+        $gets = "";
+        if (isset($data) && !empty($data)) {
+            $gets = "?";
+            foreach ($data as $k => $e)
+                $gets = $gets.$k."=".$e;
+        }
+        exit(header('Location:'.$path.$gets));
+    }
+
+    // Register user in database with hashed password
+    public function register_user($login, $password, $email) {
         $pw = hash('whirlpool', $password);
-        $this->model->add_user(strtolower($login), $pw, $this->table);
+        $login = strtolower($login);
+        $email = strtolower($email);
+        return ($this->_model->add_user($login, $pw, $email));
     }
 
+    // Logs user if form is correct
     public function log_user($login, $password) {
-        $pw = hash('whirlpool', $password);
-        if (check_pw($login, $pw) === FALSE);
+        if ($this->_model->is_active($login) == FALSE)
             return (FALSE);
+        if ($this->check_pw($login, $password) === FALSE)
+            return (FALSE);
+        session_start();
         $_SESSION['loggued'] = $login;
         return (TRUE);
     }
 
     // Checks if login and password match in database
     private function check_pw($login, $password) {
-        $db_pw = $this->model->get_user(strtolower($login), $this->table);
+        $db_pw = $this->_model->get_user_pw($login);
         if ($db_pw === FALSE)
             return (FALSE);
         if ($password === $db_pw)

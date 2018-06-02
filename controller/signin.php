@@ -2,8 +2,15 @@
 
 require_once('Controller_users.class.php');
 
-if (!isset($_POST['login'], $_POST['password'], $_POST['confirm_password']))
-    header('Location:../index.php?form=incomplete');
+if (!isset($_POST['login'], $_POST['password'], $_POST['confirm_password'], $_POST['email']) || empty($_POST['login']) || empty($_POST['password']) || empty($_POST['confirm_password']) || empty($_POST['email']))
+    exit(header('Location:../view/login.php?register=incomplete'));
 $controller = new Controller_users();
-$controller->register_user($_POST['login'], $_POST['password'], $_POST['confirm_password']);
-header('Location:../index.php?form=success');
+$login = $_POST['login'];
+$pw = $_POST['password'];
+if ($pw !== $_POST['confirm_password'])
+    exit(header('Location:../view/login.php?register=confirm_fail'));
+$controller->register_user($login, $pw, $_POST['email']); /*
+    $controller->redirect_get('../view/login.php', ['register' => 'success']);
+else
+    $controller->redirect_get('../view/login.php', ['register' => 'forbidden']);
+    */
