@@ -1,12 +1,13 @@
 <?php
 
-require_once('Controller.class.php');
-require_once('../model/Model_users.class.php');
+$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+require_once("$root/controller/Controller.class.php");
+require_once("$root/model/Model_users.class.php");
 
 class Controller_users extends Controller {
     public function __construct() {
         $this->_table = 'users';
-        $this->_model = new Model_users($this->_table);
+        $this->_model = new Model_users();
     }
 
     // Redirect to a page with associative array keys and values as $_GET
@@ -17,7 +18,7 @@ class Controller_users extends Controller {
             foreach ($data as $k => $e)
                 $gets = $gets.$k."=".$e;
         }
-        exit(header('Location:'.$path.$gets));
+        exit(header('Location:'.$root.$path.$gets));
     }
 
     // Register user in database with hashed password
@@ -37,6 +38,16 @@ class Controller_users extends Controller {
         session_start();
         $_SESSION['loggued'] = $login;
         return (TRUE);
+    }
+
+    //Confirms account
+    public function confirm_account($id, $key) {
+        $db_key = $this->_model->get_account_key($id);
+        if ($key === $db_key) {
+            $this->_model->set_account_active($id);
+            return (TRUE);
+        }
+        return (FALSE);
     }
 
     // Checks if login and password match in database

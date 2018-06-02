@@ -1,6 +1,7 @@
 <?php
 
-require_once('Model.class.php');
+$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+require_once("$root/model/Model.class.php");
 
 class Model_users extends Model {
     // Adds user with encrypted password
@@ -19,7 +20,7 @@ class Model_users extends Model {
         $stmt = $this->_db->prepare("SELECT * FROM users WHERE `login`=?");
         $stmt->execute([$login]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($user === NULL || $user === FALSE)
+        if ($user == FALSE)
             return (FALSE);
         return ($user);
     }
@@ -29,12 +30,27 @@ class Model_users extends Model {
         $stmt = $this->_db->prepare("SELECT `password` FROM users WHERE `login`=?");
         $stmt->execute([$login]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($user === NULL || $user === FALSE)
+        if ($user == FALSE)
             return (FALSE);
         else
             return ($user['password']);
     }
+    
+    public function get_account_key($id) {
+        $stmt = $this->_db->prepare("SELECT `key` FROM confirm WHERE userid=?");
+        $stmt->execute([$id]);
+        $key = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($key == FALSE)
+            return (FALSE);
+        return($key['key']);
+    }
 
+    public function set_account_active($id) {
+        $stmt = $this->_db->prepare("UPDATE users SET is_active=TRUE WHERE id=?");
+        $stmt->execute([$id]);
+    }
+
+    // Send activation account mail
     public function send_confirm_mail($login) {
         $user = $this->get_user($login);
         $mail = $user['email'];
@@ -42,9 +58,8 @@ class Model_users extends Model {
         $user_id = $user['id'];
         $key = hash('whirlpool', $login.$mail.$pw);
         $subject = "Action required : Please confirm your account on Instalike";
-        $txt = "Hello $login,\nYou can click on the link below to activate your account :\nlocalhost:8008?id=$user_id&key=$key";
-        if (mail($mail, $subject, $txt) === false)
-            echo 'fail :(';
+        $txt = "Hello $login,\nYou can click on the link below to activate your account :\nlocalhost:8008/controller/confirm.php?id=$user_id&key=$key";
+        mail($mail, $subject, $txt);
     }
 
     // Checks if account is active
@@ -52,11 +67,12 @@ class Model_users extends Model {
         $stmt = $this->_db->prepare("SELECT is_active FROM users WHERE `login`=?");
         $stmt->execute([$login]);
         $is_active = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($is_active == FALSE)
+            return (FALSE);
         $is_active = $is_active['is_active'];
         if ($is_active)
             return (TRUE);
-        else
-            return (FALSE);
+        return (FALSE);
     }
 
     // Returns TRUE or FALSE whether user exists or not
@@ -64,7 +80,7 @@ class Model_users extends Model {
         $stmt = $this->_db->prepare("SELECT * FROM users WHERE `login`=?");
         $stmt->execute([$login]);
         $user = $stmt->fetch();
-        if ($user === NULL || $user === FALSE)
+        if ($user == FALSE)
             return FALSE;
         return TRUE;
     }

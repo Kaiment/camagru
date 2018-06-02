@@ -2,13 +2,12 @@
 
 abstract class Model {
     protected $_db;
-    protected $_table;
 
     public function getDb() { return ($this->_db); }
 
-    public function __construct($table) {
-        require_once("../config/database.php");
-        $this->_table = $table;
+    public function __construct() {
+        $root = realpath($_SERVER["DOCUMENT_ROOT"]);
+        require_once("$root/config/database.php");
         $this->_db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     }
 }
