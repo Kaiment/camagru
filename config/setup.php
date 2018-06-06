@@ -9,7 +9,7 @@ $users_table = 'CREATE TABLE IF NOT EXISTS users(
         email VARCHAR(255) NOT NULL,
         is_admin BOOLEAN NOT NULL default FALSE,
         is_active BOOLEAN NOT NULL default FALSE,
-        notif BOOLEAN NOT NULL)';
+        notif BOOLEAN NOT NULL default TRUE)';
 
 $active_account_table = 'CREATE TABLE IF NOT EXISTS confirm(
         id INT AUTO_INCREMENT PRIMARY KEY,

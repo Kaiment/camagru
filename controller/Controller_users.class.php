@@ -18,14 +18,12 @@ class Controller_users extends Controller {
             foreach ($data as $k => $e)
                 $gets = $gets.$k."=".$e;
         }
-        exit(header('Location:'.$root.$path.$gets));
+        exit(header('Location:'.$path.$gets));
     }
 
     // Register user in database with hashed password
     public function register_user($login, $password, $email) {
-        $pw = hash('whirlpool', $password);
-        $login = strtolower($login);
-        $email = strtolower($email);
+        $pw = $this->hash($password);
         return ($this->_model->add_user($login, $pw, $email));
     }
 
@@ -35,8 +33,45 @@ class Controller_users extends Controller {
             return (FALSE);
         if ($this->check_pw($login, $password) === FALSE)
             return (FALSE);
-        session_start();
         $_SESSION['loggued'] = $login;
+        $_SESSION['email'] = $this->_model->get_user_email($login);
+        return (TRUE);
+    }
+
+    public function change_login($login, $new_login, $password) {
+        if (!$this->check_pw($login, $password))
+            return (FALSE);
+        if (!$this->_model->update_login(strtolower($login), $new_login))
+            return (FALSE);
+        $_SESSION['loggued'] = $new_login;
+        return (TRUE);
+    }
+
+    public function change_email($login, $email, $password) {
+        if (!$this->check_pw($login, $password))
+            return (FALSE);
+        if (!$this->_model->update_email($login, $email))
+            return (FALSE);
+        $_SESSION['email'] = $email;
+        return (TRUE);
+    }
+
+    public function change_password($login, $old_pw, $new_pw, $confirm_new_pw) {
+        if ($new_pw !== $confirm_new_pw)
+            return (FALSE);
+        if (!$this->check_pw($login, $old_pw))
+            return (FALSE);
+        if (!$this->_model->update_password($login, $this->hash($new_pw)))
+            return (FALSE);
+        return (TRUE);
+    }
+
+    // Reset user's password with new random token.
+    public function reset_password($email) {
+        $new_password = $this->hash($this->create_token());
+        if ($this->_model->update_password($email, $new_password) === FALSE)
+            return (FALSE);
+        mail($email, "Reset password", "Hello,\nYour new password is : $new_password.\nDon't forget to change your password once again after logging in.");
         return (TRUE);
     }
 
@@ -52,11 +87,14 @@ class Controller_users extends Controller {
 
     // Checks if login and password match in database
     private function check_pw($login, $password) {
+        $password = $this->hash($password);
         $db_pw = $this->_model->get_user_pw($login);
-        if ($db_pw === FALSE)
-            return (FALSE);
         if ($password === $db_pw)
             return (TRUE);
         return (FALSE);
+    }
+
+    private function hash($pw) {
+        return (hash('whirlpool', $pw));
     }
 }

@@ -3,6 +3,8 @@
 <div class='container content_auth'>
     <?php if (isset($_GET['register']) && $_GET['register'] === 'success'): ?>
         <p class='col-lg-6 offset-lg-3 success'>You are succesfully registered. A confirm mail has been sent to your email adress, click on the link you've received to confirm your account.</p>
+    <?php elseif (isset($_GET['register']) && $_GET['reset'] === 'success'): ?>
+        <p class='col-lg-6 offset-lg-3 success'>Your password has been succesfully modified. You can now check your e-mails to get your new password and change it once loggued on.</p>
     <?php endif; ?>
     <div class='row'>
         <div class='col-lg-4 offset-lg-4'>
@@ -13,7 +15,7 @@
                 </div>
                 <input class='col-lg-8 offset-lg-2' placeholder='LOGIN' id='login' type='text' name='login' /><br />
                 <input class='col-lg-8 offset-lg-2' placeholder='PASSWORD' id='password' type='password' name='password' /><br />
-                <a class='col-lg-6 offset-lg-6 forgot_pass' href='change_password.php'>Mot de passe oublié</a><br />
+                <a class='col-lg-6 offset-lg-6 forgot_pass' href='reset_password.php'>Mot de passe oublié</a><br />
                 <input class='col-lg-6 offset-lg-3 menu_button' type='submit' name='submit' value='LOG IN' />
                 <?php if (isset($_GET['log']) && $_GET['log'] === 'fail'): ?>
                     <p class='error'>Connexion failed. Please retry...</p>
