@@ -11,7 +11,6 @@ class Model_users extends Model {
         $stmt = $this->_db->prepare("INSERT INTO users (`login`, `password`, email) VALUES (?, ?, ?)");
         $stmt->execute([strtolower($login), $password, $email]);
         $this->add_to_confirm($login, $password, $email);
-        $this->send_confirm_mail($login);
         return (TRUE);
     }
 
@@ -32,14 +31,23 @@ class Model_users extends Model {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($user == FALSE)
             return (FALSE);
-        else
-            return ($user['password']);
+        return ($user['password']);
     }
     public function get_user_email($login) {
         $stmt = $this->_db->prepare("SELECT email FROM users WHERE `login`=?");
         $stmt->execute([strtolower($login)]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         $user = $user['email'];
+        if ($user == FALSE)
+            return (FALSE);
+        return ($user);
+    }
+
+    public function get_user_id($login) {
+        $stmt = $this->_db->prepare("SELECT id FROM users WHERE `login`=?");
+        $stmt->execute([strtolower($login)]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = $user['id'];
         if ($user == FALSE)
             return (FALSE);
         return ($user);
@@ -87,18 +95,6 @@ class Model_users extends Model {
         $stmt->execute([$id]);
     }
 
-    // Send activation account mail
-    public function send_confirm_mail($login) {
-        $user = $this->get_user($login);
-        $mail = $user['email'];
-        $pw = $user['password'];
-        $user_id = $user['id'];
-        $key = hash('whirlpool', $login.$mail.$pw);
-        $subject = "Action required : Please confirm your account on Instalike";
-        $txt = "Hello $login,\nYou can click on the link below to activate your account :\nlocalhost:8008/controller/confirm.php?id=$user_id&key=$key";
-        mail($mail, $subject, $txt);
-    }
-
     // Checks if account is active
     public function is_active($login) {
         $stmt = $this->_db->prepare("SELECT is_active FROM users WHERE `login`=?");
@@ -130,5 +126,8 @@ class Model_users extends Model {
         $user_id = $user_id['id'];
         $stmt = $this->_db->prepare("INSERT INTO confirm (userid, `key`) VALUES (?, ?)");
         $stmt->execute([$user_id, $confirm_hash]);
+        $subject = "Action required : Please confirm your account on Instalike";
+        $txt = "Hello $login,\nYou can click on the link below to activate your account :\nlocalhost:8008/controller/confirm.php?id=$user_id&key=$confirm_hash";
+        mail($email, $subject, $txt);
     }
 }

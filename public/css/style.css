@@ -1,3 +1,9 @@
+canvas {
+  background-color: #d1d1d1;
+  width: 100%;
+  height: auto;
+}
+
 body {
   background-color: #201f30;
 }
@@ -10,7 +16,6 @@ body {
 
 .content {
   padding: 50px 0px;
-  height: 1000px;
   background-color: #2f2e47;
 }
 
@@ -201,7 +206,7 @@ body {
   background-color: #ffffff;
   border: 1px solid #201f30;
   padding: 50px;
-  border-radius: 3px;
+  border-radius: 0px;
 }
 
 .error {

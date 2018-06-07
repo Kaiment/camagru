@@ -16,6 +16,13 @@ $active_account_table = 'CREATE TABLE IF NOT EXISTS confirm(
         userid VARCHAR(128) NOT NULL,
         `key` VARCHAR(256) NOT NULL)';
 
+$pictures_table = "CREATE TABLE IF NOT EXISTS pics(
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        userid VARCHAR(128) NOT NULL,
+        `login` VARCHAR(15) NOT NULL,
+        `name` VARCHAR(32) NOT NULL,
+        likes VARCHAR(128) NOT NULL default '0')";
+
 try {
     $dbh = new PDO($SERV_DSN, $DB_USER, $DB_PASSWORD);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -23,6 +30,7 @@ try {
     $dbh->exec("use ".$DB_NAME);
     $dbh->exec($users_table);
     $dbh->exec($active_account_table);
+    $dbh->exec($pictures_table);
     echo "Database ready to use\n";
 } catch (PDOException $e) {
     echo "Error creating database : " . $e->getMessage();

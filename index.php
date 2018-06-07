@@ -5,7 +5,7 @@ require('view/header.php');
 ?>
 
 <div class='content'>
-    <img src='<?= file_get_contents("controller/img.txt"); ?>'
+    <img src='controller/tmp.jpg'>
 </div>
 
 <?php

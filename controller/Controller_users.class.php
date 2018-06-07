@@ -68,10 +68,11 @@ class Controller_users extends Controller {
 
     // Reset user's password with new random token.
     public function reset_password($email) {
-        $new_password = $this->hash($this->create_token());
+        $new_password = $this->create_token();
+        mail($email, "Reset password", "Hello,\nYour new password is : $new_password.\nDon't forget to change your password once again after logging in.");
+        $new_password = $this->hash($new_password);
         if ($this->_model->update_password($email, $new_password) === FALSE)
             return (FALSE);
-        mail($email, "Reset password", "Hello,\nYour new password is : $new_password.\nDon't forget to change your password once again after logging in.");
         return (TRUE);
     }
 

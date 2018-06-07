@@ -13,8 +13,8 @@
                     <h3>Log in</h3>
                     <h4>Gain access to your galerie.</h4>
                 </div>
-                <input class='col-lg-8 offset-lg-2' placeholder='LOGIN' id='login' type='text' name='login' /><br />
-                <input class='col-lg-8 offset-lg-2' placeholder='PASSWORD' id='password' type='password' name='password' /><br />
+                <input class='col-lg-8 offset-lg-2' placeholder='LOGIN' id='login_co' type='text' name='login' /><br />
+                <input class='col-lg-8 offset-lg-2' placeholder='PASSWORD' id='password_co' type='password' name='password' /><br />
                 <a class='col-lg-6 offset-lg-6 forgot_pass' href='reset_password.php'>Mot de passe oublié</a><br />
                 <input class='col-lg-6 offset-lg-3 menu_button' type='submit' name='submit' value='LOG IN' />
                 <?php if (isset($_GET['log']) && $_GET['log'] === 'fail'): ?>
