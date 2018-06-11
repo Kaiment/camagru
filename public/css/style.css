@@ -5,7 +5,8 @@ canvas {
 }
 
 body {
-  background-color: #201f30;
+  background-color: #202b35;
+  color: #ffffff;
 }
 
 .header {
@@ -26,12 +27,12 @@ body {
 }
 
 .auth_text {
-  border-bottom: 1px solid #201f30;
+  border-bottom: 1px solid #202b35;
   margin-bottom: 25px;
 }
 
 .footer {
-  background-color: #201f30;
+  background-color: #202b35;
   height: 400px;
   color: white;
 }
@@ -124,7 +125,7 @@ body {
   -webkit-transition: .5s;
   transition: 0s;
   background-color: #ffffff;
-  color: #201f30;
+  color: #202b35;
 }
 
 .menu_button:hover {
@@ -135,7 +136,7 @@ body {
   -webkit-transition: .5s;
   transition: .5s;
   background-color: #6fe486;
-  color: #201f30;
+  color: #202b35;
 }
 
 .menu_button:disabled {
@@ -148,9 +149,9 @@ body {
   height: 800px;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
-  border-top: 1px solid #201f30;
-  border-bottom: 1px solid #201f30;
-  border-left: 1px solid #201f30;
+  border-top: 1px solid #202b35;
+  border-bottom: 1px solid #202b35;
+  border-left: 1px solid #202b35;
   background-color: #ffffff;
 }
 
@@ -161,7 +162,7 @@ body {
   border-top-left-radius: 3px;
   font-size: 13px;
   font-family: monospace sans-serif;
-  color: #201f30;
+  color: #202b35;
   text-decoration: none;
   padding: 15px 15px;
   cursor: pointer;
@@ -178,11 +179,11 @@ body {
   -webkit-transition: .5s;
   transition: 0s;
   background-color: #ffffff;
-  color: #201f30;
+  color: #202b35;
 }
 
 .control_bar_button:hover {
-  color: #201f30;
+  color: #202b35;
   text-decoration: none;
   border-left: 3px solid #2a7735;
   -o-transition: .5s;
@@ -191,22 +192,49 @@ body {
   -webkit-transition: .5s;
   transition: .5s;
   background-color: #6fe486;
-  color: #201f30;
+  color: #202b35;
 }
 
 .content_container {
   height: 800px;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
-  border: 1px solid #201f30;
+  border: 1px solid #202b35;
   background-color: #ffffff;
 }
 
 .add_photo {
   background-color: #ffffff;
-  border: 1px solid #201f30;
+  border: 1px solid #202b35;
   padding: 50px;
   border-radius: 0px;
+}
+
+.choose_file {
+  margin: 15px 0;
+}
+
+.choose_file label {
+  padding: 10px 0;
+  background-color: #11111a;
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.choose_file label:hover {
+  -o-transition: .5s;
+  -ms-transition: .5s;
+  -moz-transition: .5s;
+  -webkit-transition: .5s;
+  transition: .5s;
+  background-color: #5380c4;
+}
+
+.choose_file label:disabled {
+  background-color: gray;
+  color: black;
+  cursor: not-allowed;
 }
 
 .error {
@@ -229,5 +257,108 @@ body {
   margin-bottom: 0px;
   font-family: monospace sans-serif;
   font-size: 14px;
+}
+
+.img_galerie {
+  width: 100%;
+  height: auto;
+}
+
+.img_galerie:hover {
+  opacity: 0.7;
+  background-color: #910909;
+}
+
+.galerie {
+  margin-bottom: 30px;
+}
+
+.galerie img {
+  margin-top: 30px;
+}
+
+.pic_container {
+  color: #202b35;
+  margin-top: 25px;
+  background-color: #ffffff;
+}
+
+.pic_container .pic_section {
+  padding: 0;
+  border-right: 1px solid #cccccc;
+}
+
+.pic_container img {
+  padding: 0;
+  height: auto;
+}
+
+.pic_container label {
+  margin: 0;
+}
+
+.pic_container p {
+  margin: 0;
+}
+
+.pic_container .data {
+  margin-bottom: 15px;
+  padding: 0px;
+}
+
+.pic_container .react {
+  margin: 3px 0 0 0;
+}
+
+.pic_container .react i {
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pic_container .author {
+  margin-top: 8px;
+  font-weight: bold;
+  font-size: 21px;
+  margin-bottom: 5px;
+  padding-top: 0;
+}
+
+.pic_container .date {
+  border-bottom: 1px solid #cccccc;
+  margin: 0;
+  font-size: 11px;
+  color: #929191;
+}
+
+.pic_container .desc {
+  margin: 10px 0;
+}
+
+.pic_container .form_com {
+  padding: 0;
+}
+
+.pic_container input {
+  margin-bottom: 15px;
+  padding: 0;
+  border: 0;
+}
+
+.pic_container input::-webkit-input-placeholder {
+  font-size: 13px;
+  font-family: monospace sans-serif;
+  color: #b8b6b6;
+}
+
+.pic_container input:focus {
+  outline: 0;
+}
+
+.pic_container .img_div {
+  padding: 0;
+}
+
+.pic_container .likes {
+  font-weight: bold;
 }
 /*# sourceMappingURL=style.css.map */

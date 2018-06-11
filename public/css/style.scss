@@ -1,11 +1,14 @@
-$main_color: #201f30;
+$main_color: #202b35;
 $main_color_bright: #2f2e47;
 $main_color_dark: #11111a;
 $secondary_color: #ffffff;
 $positive: #6fe486;
 $positive_dark: #2a7735;
+$blue: #5380c4;
 $negative: #f09292;
 $negative_dark: #b42727;
+$grey: #cccccc;
+$grey_dark: #929191;
 
 canvas {
     background-color: #d1d1d1;
@@ -15,6 +18,7 @@ canvas {
 
 body {
     background-color: $main_color;
+    color: $secondary_color;
 }
 
 .header {
@@ -186,7 +190,6 @@ body {
         transition:.5s;
         background-color: $positive;
         color: $main_color;
-        
     }
     cursor: pointer;
 }
@@ -204,6 +207,30 @@ body {
     border: 1px solid $main_color;
     padding: 50px;
     border-radius: 0px;
+}
+
+.choose_file {
+    margin: 15px 0;
+    label {
+        padding: 10px 0;
+        background-color: $main_color_dark;
+        text-align: center;
+        color: $secondary_color;
+        &:hover {
+            -o-transition:.5s;
+            -ms-transition:.5s;
+            -moz-transition:.5s;
+            -webkit-transition:.5s;
+            transition:.5s;
+            background-color: $blue;
+        }
+        &:disabled {
+            background-color: rgb(128, 128, 128);
+            color: black;
+            cursor: not-allowed;
+        }
+        cursor: pointer;
+    }
 }
 
 .error {
@@ -226,4 +253,89 @@ body {
     margin-bottom: 0px;
     font-family: monospace sans-serif;
     font-size: 14px;
+}
+
+.img_galerie {
+    width: 100%;
+    height: auto;
+    &:hover {
+        opacity: 0.7;
+        background-color: #910909;
+    }
+}
+
+.galerie {
+    margin-bottom: 30px;
+    img {
+        margin-top: 30px;
+    }
+}
+
+.pic_container {
+    color: $main_color;
+    margin-top: 25px;
+    background-color: $secondary_color;
+    .pic_section {
+        padding: 0;
+        border-right: 1px solid $grey;
+    }
+    img {
+        padding: 0;
+        height: auto;
+    }
+    label {
+        margin: 0;
+    }
+    p {
+        margin: 0;
+    }
+    .data {
+        margin-bottom: 15px;
+        padding: 0px;
+    }
+    .react {
+        margin: 3px 0 0 0;
+        i {
+            margin: 0 5px;
+            cursor: pointer;
+        }
+    }
+    .author {
+        margin-top: 8px;
+        font-weight: bold;
+        font-size: 21px;
+        margin-bottom: 5px;
+        padding-top: 0;
+    }
+    .date {
+        border-bottom: 1px solid $grey;
+        margin: 0;
+        font-size: 11px;
+        color: $grey_dark;
+    }
+    .desc {
+        margin: 10px 0;
+    }
+    .form_com {
+        padding: 0;
+    }
+    input {
+        margin-bottom: 15px;
+        padding: 0;
+        border: 0;
+        &::-webkit-input-placeholder {
+            font-size: 13px;
+            font-family: monospace sans-serif;
+            color: #b8b6b6;
+        }
+        &:focus {
+            outline: 0;
+        }
+    }
+    .img_div {
+        padding: 0;
+    }
+    .likes {
+        font-weight: bold;
+    }
 }

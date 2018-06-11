@@ -21,6 +21,7 @@ $pictures_table = "CREATE TABLE IF NOT EXISTS pics(
         userid VARCHAR(128) NOT NULL,
         `login` VARCHAR(15) NOT NULL,
         `name` VARCHAR(32) NOT NULL,
+        `date` VARCHAR(10) NOT NULL,
         likes VARCHAR(128) NOT NULL default '0')";
 
 try {

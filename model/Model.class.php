@@ -7,7 +7,7 @@ abstract class Model {
 
     public function __construct() {
         $root = realpath($_SERVER["DOCUMENT_ROOT"]);
-        require_once("$root/config/database.php");
+        require("$root/config/database.php");
         $this->_db = new PDO($DB_DSN, $DB_USER, $DB_PASSWORD);
     }
 }

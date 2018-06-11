@@ -4,16 +4,25 @@
     <div class='row'>
         <div id='add_panel' class="col-lg-6 offset-lg-1 add_photo">
 
+            <!-- SECTION VIDEO -->
             <div class='row'>
                 <div id='video_section' class="col-lg-8 offset-lg-2 col-md-12">
                 </div>
             </div>
 
+            <!-- TAKE PHOTO BUTTON -->
             <div class='row'>
                 <div id='take_picture_section' class="col-lg-8 offset-lg-2 col-md-12">
                 </div>
             </div>
 
+            <!-- CHOOSE FILE -->
+            <div class='row choose_file'>
+                    <input id ="choose_file" class="col-lg-6 offset-lg-1" type='file'>
+                    <input type="submit" class="col-lg-3 offset-lg-1 menu_button" id="submit_file" value="SUBMIT">
+            </div>
+
+            <!-- MONTAGE IMG -->
             <div class='row'>
                 <div class='col-lg-3'>
                     <input class='col-md-1 offset-md-1' onclick="select_montage_img()" name='montage_img' type='radio' id='pineapple' value='pineapple'>
@@ -55,19 +64,19 @@
 
         </div>
 
+        <!-- SIDE -->
         <div id='add_panel' class="col-lg-4 add_photo">
 
             <div class='row'>
                 <div class='col-lg-10 offset-lg-1'>
                     <canvas width='480' height='480' id='canvas'></canvas>
                 </div>
-                <form class='col-lg-8' method='post' action='../controller/store_img.php'>
-                    <textarea>ye</textarea>
-                </form>
             </div>
 
             <div class='row'>
-                <input class="col-lg-4 offset-lg-4 menu_button" id="publish" type="submit" value='PUBLISH'>
+                <form class="col-lg-4 offset-lg-4" action="../controller/store_img.php" method='post'>
+                    <input class="menu_button" id="publish" type="submit" value='PUBLISH'>
+                </form>
             </div>
 
         </div>
@@ -97,6 +106,6 @@
     </div>
 </div>
 
-<script src='../public/js/cam.js'></script>
+<script type="text/javascript" src='../public/js/cam.js'></script>
 
 <?php require_once("footer.php"); ?>

@@ -1,5 +1,5 @@
 <?php
 
-$token = openssl_random_pseudo_bytes(16);
-$token = bin2hex($token);
-echo $token;
+date_default_timezone_set("Europe/Paris");
+echo time()."\n";
+echo date('d/m/Y H:i:s', time());
