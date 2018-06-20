@@ -42,7 +42,7 @@
                 </div>
             </div>
                 
-
+            <!-- MONTAGE IMG 2 -->
             <div class='row'>
                 <div class='col-lg-3'>
                     <input class='col-md-1 offset-md-1' onclick="select_montage_img()" name='montage_img' type='radio' id='wow' value='wow'>
@@ -69,14 +69,12 @@
 
             <div class='row'>
                 <div class='col-lg-10 offset-lg-1'>
-                    <canvas width='480' height='480' id='canvas'></canvas>
+                    <img class='preview' width='480' height='480' id='preview'>
                 </div>
             </div>
 
             <div class='row'>
-                <form class="col-lg-4 offset-lg-4" action="../controller/store_img.php" method='post'>
-                    <input class="menu_button" id="publish" type="submit" value='PUBLISH'>
-                </form>
+                <input class="menu_button" id="publish" type="submit" value='PUBLISH'>
             </div>
 
         </div>
@@ -84,24 +82,6 @@
 
     <div class='row'>
         <div id='saved_pics' class='col-lg-10 offset-lg-1 add_photo'>
-            <div class='row'>
-                <img class='col-lg-3' height='100px' src='https://www.lesfruitsetlegumesfrais.com/_upload/cache/ressources/produits/ananas/ananas_346_346_filled.jpg'>
-                <img class='col-lg-3' height='100px' src='https://www.lesfruitsetlegumesfrais.com/_upload/cache/ressources/produits/ananas/ananas_346_346_filled.jpg'>
-                <img class='col-lg-3' height='100px' src='https://www.lesfruitsetlegumesfrais.com/_upload/cache/ressources/produits/ananas/ananas_346_346_filled.jpg'>
-                <img class='col-lg-3' height='100px' src='https://www.lesfruitsetlegumesfrais.com/_upload/cache/ressources/produits/ananas/ananas_346_346_filled.jpg'>
-            </div>
-            <div class='row'>
-                <img class='col-lg-3' height='100px' src='https://www.lesfruitsetlegumesfrais.com/_upload/cache/ressources/produits/ananas/ananas_346_346_filled.jpg'>
-                <img class='col-lg-3' height='100px' src='https://www.lesfruitsetlegumesfrais.com/_upload/cache/ressources/produits/ananas/ananas_346_346_filled.jpg'>
-                <img class='col-lg-3' height='100px' src='https://www.lesfruitsetlegumesfrais.com/_upload/cache/ressources/produits/ananas/ananas_346_346_filled.jpg'>
-                <img class='col-lg-3' height='100px' src='https://www.lesfruitsetlegumesfrais.com/_upload/cache/ressources/produits/ananas/ananas_346_346_filled.jpg'>
-            </div>
-            <div class='row'>
-                <img class='col-lg-3' height='100px' src='https://www.lesfruitsetlegumesfrais.com/_upload/cache/ressources/produits/ananas/ananas_346_346_filled.jpg'>
-                <img class='col-lg-3' height='100px' src='https://www.lesfruitsetlegumesfrais.com/_upload/cache/ressources/produits/ananas/ananas_346_346_filled.jpg'>
-                <img class='col-lg-3' height='100px' src='https://www.lesfruitsetlegumesfrais.com/_upload/cache/ressources/produits/ananas/ananas_346_346_filled.jpg'>
-                <img class='col-lg-3' height='100px' src='https://www.lesfruitsetlegumesfrais.com/_upload/cache/ressources/produits/ananas/ananas_346_346_filled.jpg'>
-            </div>
         </div>
     </div>
 </div>

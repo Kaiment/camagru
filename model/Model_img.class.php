@@ -12,6 +12,49 @@ class Model_img extends Model {
         return (TRUE);
     }
 
+    public function add_like($pic_id, $user_id) {
+        $stmt = $this->_db->prepare("INSERT INTO likes (pic_id, liker_id) VALUES (?, ?)");
+        $stmt->execute([$pic_id, $user_id]);
+        $this->_db->query("UPDATE pics SET likes = likes + 1 WHERE id = $pic_id");
+        if ($stmt->rowCount() < 1)
+            return (FALSE);
+        $nb_likes = $this->_db->query("SELECT likes FROM pics WHERE id = $pic_id");
+        return ($nb_likes->fetch(PDO::FETCH_ASSOC)['likes']);
+    }
+
+    public function remove_like($pic_id, $user_id) {
+        $stmt = $this->_db->prepare("DELETE FROM likes WHERE pic_id=? AND liker_id=?");
+        $stmt->execute([$pic_id, $user_id]);
+        $this->_db->query("UPDATE pics SET likes = likes - 1 WHERE id = $pic_id");
+        if ($stmt->rowCount() < 1)
+            return (FALSE);
+        $nb_likes = $this->_db->query("SELECT likes FROM pics WHERE id = $pic_id");
+        return ($nb_likes->fetch(PDO::FETCH_ASSOC)['likes']);
+    }
+
+    public function has_already_liked($pic_id, $user_id) {
+        $stmt = $this->_db->prepare("SELECT * FROM likes WHERE pic_id=? AND liker_id=?");
+        $stmt->execute([$pic_id, $user_id]);
+        $status = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($status == FALSE)
+            return FALSE;
+        return TRUE;
+    }
+
+    public function add_comment($pic_id, $user_id, $comment) {
+        $stmt = $this->_db->prepare("INSERT INTO comments (pic_id, userid, comment) VALUES(?, ?, ?)");
+        $stmt->execute([$pic_id, $user_id, $comment]);
+        if ($stmt->rowCount() < 1)
+            return (FALSE);
+        return (TRUE);
+    }
+    
+    public function get_pic_comments($pic_id) {
+        $stmt = $this->_db->prepare("SELECT userid, comment FROM comments WHERE pic_id=?");
+        $stmt->execute([$pic_id]);
+        return ($stmt->fetchAll(PDO::FETCH_ASSOC));
+    }
+
     public function get_pic($id) {
         $stmt = $this->_db->prepare("SELECT * FROM pics WHERE `id`=?");
         $stmt->execute([$id]);

@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,16 +16,16 @@
         
         <nav class='container-fluid header'>
             <div class='row no-gutters'>
-                <div class='col-lg-2'>
+                <div class='col-12 col-lg-1'>
                     <a href='../index.php'><img class='logo_main' src='../public/img/logo_main.png'></a>
                 </div>
-                <?php session_start(); if (!isset($_SESSION['loggued'])): ?>
-                        <a href='/view/add_photo.php' class='col-lg-2 offset-lg-6 menu_button'><i class="fa fa-camera"></i> GALERIE</a>
+                <?php if (!isset($_SESSION['loggued'])): ?>
+                        <a href='/view/galerie.php' class='col-lg-2 offset-lg-7 menu_button'><i class="fa fa-camera"></i> GALERIE</a>
                         <a href='/view/login.php' class='col-lg-2 menu_button'><i class="fa fa-power-off"></i> LOG IN / REGISTER</a>
                 <?php else: ?>
-                        <a href='/view/galerie.php' class='col-lg-2 offset-lg-2 menu_button'><i class="fa fa-camera"></i> GALERIE</a>
+                        <a href='/view/galerie.php' class='col-lg-2 offset-lg-3 menu_button'><i class="fa fa-camera"></i> GALERIE</a>
                         <a href='/view/add_photo.php' class='col-lg-2 menu_button'><i class="fa fa-plus-circle"></i> ADD PHOTO</a>
-                        <a href='/view/account.php' class='col-lg-2 menu_button'><i class="fa fa-user"></i> MY ACCOUNT</a>
+                        <a href='/view/account.php' class='col-lg-2 menu_button'><i class="fa fa-user"></i> <?= htmlspecialchars(strtoupper($_SESSION['loggued']));?></a>
                         <a href='/controller/logout.php' class='col-lg-2 menu_button'><i class="fa fa-power-off"></i> LOG OUT</a>
                 <?php endif ?>
             </div>

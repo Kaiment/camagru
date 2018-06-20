@@ -8,8 +8,10 @@ class Model_users extends Model {
     public function add_user($login, $password, $email) {
         if ($this->login_exists($login) === TRUE)
             return (FALSE);
+        if ($this->email_exists($email) === TRUE)
+            return (FALSE);
         $stmt = $this->_db->prepare("INSERT INTO users (`login`, `password`, email) VALUES (?, ?, ?)");
-        $stmt->execute([strtolower($login), $password, $email]);
+        $stmt->execute([strtolower($login), $password, strtolower($email)]);
         $this->add_to_confirm($login, $password, $email);
         return (TRUE);
     }
@@ -24,6 +26,15 @@ class Model_users extends Model {
         return ($user);
     }
 
+    public function get_user_by_id($id) {
+        $stmt = $this->_db->prepare("SELECT `login` FROM users WHERE id=?");
+        $stmt->execute([$id]);
+        $login = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$login)
+            return (FALSE);
+        return ($login['login']);
+    }
+
     // Returns user's password or FALSE if user is not found.
     public function get_user_pw($login) {
         $stmt = $this->_db->prepare("SELECT `password` FROM users WHERE `login`=?");
@@ -33,6 +44,7 @@ class Model_users extends Model {
             return (FALSE);
         return ($user['password']);
     }
+    
     public function get_user_email($login) {
         $stmt = $this->_db->prepare("SELECT email FROM users WHERE `login`=?");
         $stmt->execute([strtolower($login)]);
@@ -62,6 +74,8 @@ class Model_users extends Model {
     }
 
     public function update_email($login, $email) {
+        if ($this->email_exists($email))
+            return FALSE;
         $stmt = $this->_db->prepare("UPDATE users SET `email`=? WHERE `login`=?");
         $stmt->execute([strtolower($email), strtolower($login)]);
         if ($stmt->rowCount() < 1)
@@ -89,9 +103,11 @@ class Model_users extends Model {
         return($key['key']);
     }
 
-    // Upadtes user and make its account active.
+    // Updates user and make its account active.
     public function set_account_active($id) {
         $stmt = $this->_db->prepare("UPDATE users SET is_active=TRUE WHERE id=?");
+        $stmt->execute([$id]);
+        $stmt = $this->_db->prepare("DELETE FROM confirm WHERE id=?");
         $stmt->execute([$id]);
     }
 
@@ -118,6 +134,15 @@ class Model_users extends Model {
         return TRUE;
     }
 
+    public function email_exists($email) {
+        $stmt = $this->_db->prepare("SELECT email FROM users WHERE email=?");
+        $stmt->execute([strtolower($email)]);
+        $email = $stmt->fetch();
+        if ($email)
+            return TRUE;
+        return FALSE;
+    }
+
     private function add_to_confirm($login, $password, $email) {
         $confirm_hash = hash('whirlpool', $login.$password.$email);
         $stmt = $this->_db->prepare("SELECT id from users WHERE `login`=?");
@@ -127,7 +152,14 @@ class Model_users extends Model {
         $stmt = $this->_db->prepare("INSERT INTO confirm (userid, `key`) VALUES (?, ?)");
         $stmt->execute([$user_id, $confirm_hash]);
         $subject = "Action required : Please confirm your account on Instalike";
-        $txt = "Hello $login,\nYou can click on the link below to activate your account :\nlocalhost:8008/controller/confirm.php?id=$user_id&key=$confirm_hash";
-        mail($email, $subject, $txt);
+        $txt = "<html><body>";
+        $txt .= "<p>Hello $login,</p>";
+        $txt .= "<p>You can click on the link below to activate your account :</p>";
+        $txt .= "<a href=\""."http://localhost:8008/controller/confirm.php?id=".$user_id."&key=".$confirm_hash."\">Confirm account.</a>";
+        $txt .= "</body></html>";
+        $header = "MIME-Version: 1.0" . "\r\n";
+        $header .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+        $header .= "From: noreply@instalike.com" . "\r\n";
+        mail($email, $subject, $txt, $header);
     }
 }

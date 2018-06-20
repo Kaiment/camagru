@@ -1,8 +1,13 @@
 // Parts for image generation
 var video_section = document.querySelector("#video_section");
-var canvas = document.querySelector("#canvas");
-var context = canvas.getContext("2d");
+var save_section = document.querySelector("#saved_pics");
+var preview = document.querySelector("#preview");
+//var context = canvas.getContext("2d");
 var video = null;
+var canvas = document.createElement('canvas');
+canvas.setAttribute('width', 480);
+canvas.setAttribute('height', 480);
+var context = canvas.getContext('2d');
 
 // Inputs
 var take_photo = null;
@@ -22,14 +27,30 @@ function send_pic() {
     let xhr = new XMLHttpRequest();
     xhr.onreadystatechange = () => {
         if (xhr.readyState == 4) {
-            let img = new Image();
-            img.src = xhr.response;
-            context.drawImage(img, 0, 0, 480, 480, 0, 0, 480, 480);
+            preview.src = xhr.response;
         }
     };
     xhr.open("POST", "../../controller/create_img.php", true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.send("img=" + img_data + "&montage_img=" + montage_img);
+}
+
+function enable_publish() {
+    publish.disabled = false;
+    publish.onclick = () => {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState == 4) {
+                let saved = document.createElement("img");
+                saved.setAttribute('class', 'col-lg-3');
+                saved.src = xhr.response;
+                save_section.appendChild(saved);
+                publish.disabled = true;
+            }
+        };
+        xhr.open("GET", "../../controller/store_img.php", true);
+        xhr.send();
+    }
 }
 
 function select_montage_img() {
@@ -39,6 +60,7 @@ function select_montage_img() {
     submit_file.disabled = false;
 }
 
+// UPLOAD IMG
 submit_file.onclick = function() {
     if (!choose_file.files[0])
         return;
@@ -49,7 +71,8 @@ submit_file.onclick = function() {
     reader.addEventListener("load", () => {
         img_data = reader.result;
     });
-    send_pic();
+    console.log(img_data);
+    //send_pic();
 }
 
 /*
@@ -85,9 +108,9 @@ function create_take_picture_elem() {
     input.setAttribute("disabled", "true");
     input.onclick = function() {
         context.drawImage(video, 80, 0, 480, 480, 0, 0, 480, 480);
-        img_data = canvas.toDataURL("image/jpeg");
+        img_data = canvas.toDataURL('image/jpeg');
         send_pic();
-        publish.disabled = false;
+        enable_publish();
     }
     section.appendChild(input);
     take_photo = input;

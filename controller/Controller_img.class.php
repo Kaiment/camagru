@@ -21,6 +21,31 @@ class Controller_img extends Controller {
         return (TRUE);
     }
 
+    public function add_like($pic_id, $user_id) {
+        if (!$this->get_pic($pic_id))
+            return FALSE;
+        if ($this->_model_img->has_already_liked($pic_id, $user_id))
+            return ($this->_model_img->remove_like($pic_id, $user_id));
+        else
+            return ($this->_model_img->add_like($pic_id, $user_id));
+    }
+
+    public function add_comment($pic_id, $user_id, $comment) {
+        return ($this->_model_img->add_comment($pic_id, $user_id, $comment));
+    }
+    
+    public function get_pic_comments($pic_id) {
+        return ($this->_model_img->get_pic_comments($pic_id));
+    }
+
+    public function has_already_liked($pic_id, $user_id) {
+        if (!$this->get_pic($pic_id))
+            return FALSE;
+        if ($this->_model_img->has_already_liked($pic_id, $user_id))
+            return TRUE;
+        return FALSE;
+    }
+
     public function get_pic($id) {
         if (is_numeric($id))
             return ($this->_model_img->get_pic($id));

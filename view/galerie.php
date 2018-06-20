@@ -5,7 +5,10 @@ require("../controller/Controller_img.class.php");
 
 $controller_img = new Controller_img();
 $pics = $controller_img->get_one_page();
-$str = "<div class='row'>";
+if (empty($pics))
+    $str = '';
+else
+    $str = "<div class='row'>";
 foreach ($pics as $k => $pic) {
     $author = $pic['login'];
     $pic_name = $pic['name'];
@@ -13,7 +16,7 @@ foreach ($pics as $k => $pic) {
     $img = "<img class='img_galerie' src='../public/img/users/$author/$pic_name.jpg'>";
     $link = "<a href='solo_pic.php?id=$pic_id'>";
     $pic_container = "$link$img</a>";
-    $str = $str."<div class='col-lg-4'>$pic_container</div>";
+    $str = $str."<div class='col-4'>$pic_container</div>";
 }
 $str = $str."</div>";
 

@@ -3,7 +3,7 @@
 <div class='container content_auth'>
     <?php if (isset($_GET['register']) && $_GET['register'] === 'success'): ?>
         <p class='col-lg-6 offset-lg-3 success'>You are succesfully registered. A confirm mail has been sent to your email adress, click on the link you've received to confirm your account.</p>
-    <?php elseif (isset($_GET['register']) && $_GET['reset'] === 'success'): ?>
+    <?php elseif (isset($_GET['reset']) && $_GET['reset'] === 'success'): ?>
         <p class='col-lg-6 offset-lg-3 success'>Your password has been succesfully modified. You can now check your e-mails to get your new password and change it once loggued on.</p>
     <?php endif; ?>
     <div class='row'>

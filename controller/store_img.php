@@ -13,4 +13,4 @@ $tmp = file_get_contents("../public/img/users/$login/tmp.jpg");
 file_put_contents("../public/img/users/$login/$pic_token.jpg", $tmp);
 $controller->add_pic($login, $pic_token, time());
 unlink("../public/img/users/$login/tmp.jpg");
-header("Location:../view/galerie.php");
+echo "data:image/jpeg;base64,".base64_encode(file_get_contents("../public/img/users/$login/$pic_token.jpg"));

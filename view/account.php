@@ -12,7 +12,7 @@
                 <form class="auth_form" action="../controller/edit_profile.php" method="post">
                     <div class="row">
                         <h5 class="col-lg-3 offset-lg-1">Login</h5>
-                        <input class="col-lg-7" type="text" name="login" value=<?= $_SESSION['loggued'] ?> />
+                        <input class="col-lg-7" type="text" name="login" value="<?= htmlspecialchars($_SESSION['loggued']); ?>" />
                     </div>
                     <div class="row">
                         <h5 class="col-lg-3 offset-lg-1">Password</h5>
@@ -24,7 +24,7 @@
                 <form class="auth_form" action="../controller/edit_profile.php" method="post">
                     <div class="row">
                         <h5 class="col-lg-3 offset-lg-1">New e-mail</h5>
-                        <input class="col-lg-7" type="email" name="new_email" value=<?= $_SESSION['email'] ?> />
+                        <input class="col-lg-7" type="email" name="new_email" value="<?= htmlspecialchars($_SESSION['email']); ?>" />
                     </div>
                     <div class="row">
                         <h5 class="col-lg-3 offset-lg-1">Password</h5>
@@ -32,6 +32,11 @@
                     </div>
                     <input class="menu_button" type="submit" value="UPDATE" />
                 </form>
+                <?php if (isset($_GET['edit_email']) && $_GET['edit_email'] == 'fail'): ?>
+                    <p class='error'>Password is incorrect or e-mail already exists.</p>
+                <?php elseif (isset($_GET['edit_email']) && $_GET['edit_email'] == 'success'): ?>
+                    <p class='success'>E-mail update successful.</p>
+                <?php endif; ?>
             <?php elseif (isset($_GET['edit_password'])): ?>
                 <form class="auth_form" action="../controller/edit_profile.php" method="post">
                     <div class="row">

@@ -10,7 +10,9 @@ $negative_dark: #b42727;
 $grey: #cccccc;
 $grey_dark: #929191;
 
-canvas {
+$basic_font: 'Comic sans MS';
+
+.preview {
     background-color: #d1d1d1;
     width: 100%;
     height: auto;
@@ -44,19 +46,15 @@ body {
     margin-bottom: 25px;
 }
 
-.footer {
-    background-color: $main_color;
-    height: 400px;
-    color: white;
-}
-
 .logo_main_container {
     align-items: center;
 }
 
 .logo_main {
-    margin-left: 20px;
-    width: 50px;
+    display: block;
+    max-width: 50px;
+    width: 100%;
+    margin: auto;
 }
 
 .forgot_pass {
@@ -279,6 +277,12 @@ body {
         padding: 0;
         border-right: 1px solid $grey;
     }
+    .comment_section {
+        padding: 15px 15px 0 15px;
+        p {
+            padding: 0px;
+        }
+    }
     img {
         padding: 0;
         height: auto;
@@ -289,8 +293,11 @@ body {
     p {
         margin: 0;
     }
+    .pic_footer {
+        padding: 0 10px;;
+    }
     .data {
-        margin-bottom: 15px;
+        margin-bottom: 5px;
         padding: 0px;
     }
     .react {
@@ -308,7 +315,6 @@ body {
         padding-top: 0;
     }
     .date {
-        border-bottom: 1px solid $grey;
         margin: 0;
         font-size: 11px;
         color: $grey_dark;
@@ -320,7 +326,8 @@ body {
         padding: 0;
     }
     input {
-        margin-bottom: 15px;
+        margin-bottom: 0;
+        margin-top: auto;
         padding: 0;
         border: 0;
         &::-webkit-input-placeholder {
@@ -337,5 +344,47 @@ body {
     }
     .likes {
         font-weight: bold;
+    }
+}
+
+.landing_page {
+    .title_strip {
+        .title {
+            padding-top: 50px;
+        }
+        margin: 0;
+        background-image: url('../img/bg.jpg');
+        background-size: cover;
+        background-position: left bottom;
+        height: 500px;
+    }
+    font-family: $basic_font;
+    h1 {
+        color: $secondary_color;
+        font-family: $basic_font;
+    }
+}
+
+.footer {
+    margin-top: 15vh;
+    p {
+        margin:0;
+    }
+    .infos {
+        width: 80%;
+        margin: 10px auto;
+        text-align: center;
+        a {
+            color: $grey;
+            font-family: $basic_font;
+            font-size: 11px;
+            margin: 0 5px;
+        }
+    }
+    .copyright {
+        text-align: center;
+        font-size: 13px;
+        color: $secondary_color;
+        background-color: $main_color_dark;
     }
 }

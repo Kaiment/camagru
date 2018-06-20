@@ -21,6 +21,10 @@ class Controller_users extends Controller {
         exit(header('Location:'.$path.$gets));
     }
 
+    public function get_user_by_id($id) {
+        return ($this->_model->get_user_by_id($id));
+    }
+
     // Register user in database with hashed password
     public function register_user($login, $password, $email) {
         $pw = $this->hash($password);
@@ -35,6 +39,7 @@ class Controller_users extends Controller {
             return (FALSE);
         $_SESSION['loggued'] = $login;
         $_SESSION['email'] = $this->_model->get_user_email($login);
+        $_SESSION['user_id'] = $this->_model->get_user_id($login);
         return (TRUE);
     }
 
@@ -68,22 +73,33 @@ class Controller_users extends Controller {
 
     // Reset user's password with new random token.
     public function reset_password($email) {
+        if (!$this->_model->email_exists($email))
+            return FALSE;
         $new_password = $this->create_token();
-        mail($email, "Reset password", "Hello,\nYour new password is : $new_password.\nDon't forget to change your password once again after logging in.");
         $new_password = $this->hash($new_password);
         if ($this->_model->update_password($email, $new_password) === FALSE)
             return (FALSE);
+        mail($email, "Reset password", "Hello,\nYour new password is : $new_password.\nDon't forget to change your password once again after logging in.");
         return (TRUE);
     }
 
     //Confirms account
     public function confirm_account($id, $key) {
+        if (!$this->_model->get_user_by_id($id))
+            return FALSE;
         $db_key = $this->_model->get_account_key($id);
         if ($key === $db_key) {
             $this->_model->set_account_active($id);
             return (TRUE);
         }
         return (FALSE);
+    }
+
+    // CHECK IF PASSWORD IS PROTECTED
+    public function password_is_safe($pw) {
+        if (strlen($pw) < 8)
+            return FALSE;
+        
     }
 
     // Checks if login and password match in database
