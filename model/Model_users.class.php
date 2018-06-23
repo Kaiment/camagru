@@ -124,6 +124,10 @@ class Model_users extends Model {
         return (FALSE);
     }
 
+    public function notif_enabled($id) {
+        $stmt = $this->_db->prepare("SELECT ");
+    }
+
     // Returns TRUE or FALSE whether user exists or not
     private function login_exists($login) {
         $stmt = $this->_db->prepare("SELECT * FROM users WHERE `login`=?");

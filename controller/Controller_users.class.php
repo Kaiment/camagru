@@ -25,6 +25,10 @@ class Controller_users extends Controller {
         return ($this->_model->get_user_by_id($id));
     }
 
+    public function notif_enabled($id) {
+        return ($this->_model->notif_enabled($id));
+    }
+
     // Register user in database with hashed password
     public function register_user($login, $password, $email) {
         $pw = $this->hash($password);

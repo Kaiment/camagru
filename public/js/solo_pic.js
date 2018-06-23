@@ -31,6 +31,8 @@ comment_input.onkeypress = (keycode) => {
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = () => {
             if (xhr.readyState == 4) {
+                if (!xhr.response)
+                    return false;
                 let res = JSON.parse(xhr.response);
                 let author = document.createElement('b');
                 author.appendChild(document.createTextNode(res.user_login + " "));
