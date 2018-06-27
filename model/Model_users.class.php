@@ -124,8 +124,25 @@ class Model_users extends Model {
         return (FALSE);
     }
 
-    public function notif_enabled($id) {
-        $stmt = $this->_db->prepare("SELECT ");
+    public function notif_enabled($pic_id) {
+        $user_id = $this->get_user_id_from_pic($pic_id);
+        if ($user_id === FALSE)
+            return FALSE;
+        $stmt = $this->_db->prepare("SELECT notif FROM users WHERE id=?");
+        $stmt->execute([$user_id]);
+        $notif = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($notif == FALSE)
+            return FALSE;
+        return ($notif['notif']);
+    }
+
+    private function get_user_id_from_pic($pic_id) {
+        $stmt = $this->_db->prepare("SELECT userid FROM pics WHERE id=?");
+        $stmt->execute([$pic_id]);
+        $userid = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$userid)
+            return (FALSE);
+        return ($userid['userid']);
     }
 
     // Returns TRUE or FALSE whether user exists or not
@@ -163,7 +180,7 @@ class Model_users extends Model {
         $txt .= "</body></html>";
         $header = "MIME-Version: 1.0" . "\r\n";
         $header .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        $header .= "From: noreply@instalike.com" . "\r\n";
+        $header .= "From: kai.bedene@gmail.com" . "\r\n";
         mail($email, $subject, $txt, $header);
     }
 }

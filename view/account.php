@@ -53,6 +53,12 @@
                     </div>
                     <input class="menu_button" type="submit" value="UPDATE" />
                 </form> 
+            <?php elseif (isset($_GET['edit_notif'])): ?>
+                <form class="auth_form" action="../controller/edit_profile.php" method="post">
+                    <div class="row">
+                        <input class="col-lg-1 offset-lg-1" id="notif" type="radio" name="notif"><h5 class="col-lg-9">Activate notifications when users comment your pics.</h5>
+                    </div>
+                </form>
             <?php endif; ?>
         </div>
     </div>

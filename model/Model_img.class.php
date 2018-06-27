@@ -44,8 +44,6 @@ class Model_img extends Model {
     public function add_comment($pic_id, $user_id, $comment) {
         $stmt = $this->_db->prepare("INSERT INTO comments (pic_id, userid, comment) VALUES(?, ?, ?)");
         $stmt->execute([$pic_id, $user_id, $comment]);
-        if ($stmt->rowCount() < 1)
-            return (FALSE);
         return (TRUE);
     }
     

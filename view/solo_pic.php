@@ -20,7 +20,7 @@ if (!$author)
     $author = '[Deleted User]';
 date_default_timezone_set("Europe/Paris");
 $date = date("d/m/Y H:i:s", $pic['date']);
-$desc = $pic['desc'];
+//$desc = $pic['desc'];
 $likes = $pic['likes'];
 if ($likes < 2)
     $likes .= " like";
@@ -53,13 +53,15 @@ foreach ($comments as $comment) {
                     <img width='480px' height="480px" class="col-lg-12" src="../public/img/users/<?= $pic['login'] ?>/<?= $pic_name ?>.jpg">
                 </div>
                 <div class='col-lg-12 pic_footer'>
+                    <?php if isset($_SESSION['loggued']): ?>
                     <div class='react'>
                             <i id="like_btn" class="<?= $like_icon ?>"></i>
                             <label for="comment_input"><i class="far fa-comment-dots"></i></label>
                     </div>
+                    <?php endif; ?>
                     <div class='col-lg-12 data'>
                         <p id="likes" class="likes"><?= $likes ?></p>
-                        <p class='desc'><?= $desc ?></p>
+                        <p class='desc'><?= isset($desc) ? $desc : false; ?></p>
                         <p class='date'><?= $date ?></p>
                     </div>
                 </div>
