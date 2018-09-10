@@ -39,43 +39,42 @@
                     <p class='success'>E-mail update successful.</p>
                 <?php endif; ?>
             <?php elseif (isset($_GET['edit_password'])): ?>
-                <form class="auth_form" action="../controller/edit_profile.php" method="post">
+                <form class="auth_form" id='auth_form' action="../controller/edit_profile.php" method="post">
                     <div class="row">
                         <label for='old_pw' class="col-lg-3 offset-lg-1">Old Password</label>
                         <input class="col-lg-7" type="password" id='old_pw' name="old_pw" />
                     </div>
                     <div class="row">
                         <label for='new_pw' class="col-lg-3 offset-lg-1">New Password</label>
-                        <input class="col-lg-7" type="password" id='new_pw' name="new_pw" />
+                        <input id='password1' class="col-lg-7" type="password" id='new_pw' name="new_pw" />
                     </div>
                     <div class="row">
                         <label for='confirm' class="col-lg-3 offset-lg-1">Confirm password</label>
                         <input class="col-lg-7" type="password" id='confirm' name="confirm_new_pw" />
                     </div>
-                    <input class="menu_button" type="submit" value="UPDATE" />
+                    <input id='submit_register' class="menu_button" type="submit" value="UPDATE" />
                 </form> 
             <?php elseif (isset($_GET['edit_notif'])): ?>
                 <form class="auth_form" action="../controller/edit_profile.php" method="post">
-                    <form>
-                        <?php
-                            require("../controller/Controller_users.class.php");
-                            $controller_user = new Controller_users();
-                            $notif_enabled = $controller_user->notif_enabled_by_userid($_SESSION['user_id']);
-                        ?>
-                        <div class='row'>
-                            <input id="notif_e" type="radio" name="notif" value='1' <?= $notif_enabled ? 'checked' : ''; ?> >
-                            <label for="notif_e">Notifications enabled</label>
-                        </div>
-                        <div class='row'>
-                            <input id="notif_d" type="radio" name="notif" value='0' <?= $notif_enabled ? '' : 'checked'; ?> >
-                            <label for="notif_d">Notifications disabled</label>
-                        </div>
-                        <input class="menu_button" type="submit" value="UPDATE" />
-                    </form>
+                    <?php
+                        require("../controller/Controller_users.class.php");
+                        $controller_user = new Controller_users();
+                        $notif_enabled = $controller_user->notif_enabled_by_userid($_SESSION['user_id']);
+                    ?>
+                    <div class='row'>
+                        <input id="notif_e" type="radio" name="notif" value='1' <?= $notif_enabled ? 'checked' : ''; ?> >
+                        <label for="notif_e">Notifications enabled</label>
+                    </div>
+                    <div class='row'>
+                        <input id="notif_d" type="radio" name="notif" value='0' <?= $notif_enabled ? '' : 'checked'; ?> >
+                        <label for="notif_d">Notifications disabled</label>
+                    </div>
+                    <input class="menu_button" type="submit" value="UPDATE" />
                 </form>
             <?php endif; ?>
         </div>
     </div>
 </div>
 
+<script type='text/javascript' src='../public/js/check_pw_requirements.js'></script>
 <?php require('footer.php'); ?>

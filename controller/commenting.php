@@ -6,7 +6,7 @@ require('./Controller_users.class.php');
 $controller_img = new Controller_img();
 $controller_users = new Controller_users();
 
-if (!isset($_POST['comment'], $_POST['user_id'], $_POST['pic_id']))
+if (!isset($_POST['comment'], $_POST['user_id'], $_POST['pic_id']) || $_POST['comment'] === '')
     die();
 $comment = $_POST['comment'];
 $user_id = $_POST['user_id'];

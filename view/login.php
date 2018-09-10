@@ -33,7 +33,7 @@
                 </div>
                 <input class='col-lg-8 offset-lg-2' placeholder='EMAIL' id='email' type='email' name='email' />
                 <input class='col-lg-8 offset-lg-2' placeholder='LOGIN' id='login' type='text' name='login' />
-                <input class='col-lg-8 offset-lg-2' placeholder='PASSWORD' id='password' type='password' name='password' />
+                <input class='col-lg-8 offset-lg-2' placeholder='PASSWORD' id='password1' type='password' name='password' />
                 <input class='col-lg-8 offset-lg-2' placeholder='CONFIRM PASSWORD' id='confirm_password' type='password' name='confirm_password' />
                 <input class='col-lg-6 offset-lg-3 menu_button' id='submit_register' type='submit' name='submit' value='REGISTER' />
                 <?php if (isset($_GET['register']) && $_GET['register'] === 'incomplete'): ?>
@@ -49,4 +49,5 @@
 </div>
 
 <script type='text/javascript' src='../public/js/login.js'></script>
+<script type='text/javascript' src='../public/js/check_pw_requirements.js'></script>
 <?php require('footer.php'); ?>

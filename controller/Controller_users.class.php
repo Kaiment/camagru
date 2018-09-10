@@ -95,8 +95,7 @@ class Controller_users extends Controller {
         if (!$this->_model->email_exists($email))
             return FALSE;
         $new_password = $this->create_token();
-        $new_password = $this->hash($new_password);
-        if ($this->_model->update_password($email, $new_password) === FALSE)
+        if ($this->_model->update_password($email, $this->hash($new_password)) === FALSE)
             return (FALSE);
         mail($email, "Reset password", "Hello,\nYour new password is : $new_password.\nDon't forget to change your password once again after logging in.");
         return (TRUE);

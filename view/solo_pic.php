@@ -68,7 +68,7 @@ foreach ($comments as $comment) {
 
             <div id='comment_section' class="col-lg-7 comment_section">
                 <?= $comments_html ?>
-                <input id='comment_input' class='col-lg-12' type='text' placeholder="Add a comment..." name="comment">
+                <input id='comment_input' class='col-lg-12' type='text' placeholder=<?= isset($_SESSION['loggued']) ? "\"Add a comment...\"" : "\"Log in to comment\" disabled"?> name="comment">
             </div>
 
         </div>
