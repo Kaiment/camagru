@@ -53,6 +53,16 @@ class Model_img extends Model {
         return ($stmt->fetchAll(PDO::FETCH_ASSOC));
     }
 
+    public function delete_img($pic_id) {
+        $stmt = $this->_db->prepare("DELETE FROM pics WHERE id=?");
+        $stmt->execute([$pic_id]);
+    }
+
+    public function delete_userid_comments($userid) {
+        $stmt = $this->_db->prepare("DELETE FROM comments WHERE userid=?");
+        $stmt->execute([$userid]);
+    }
+
     public function get_pic($id) {
         $stmt = $this->_db->prepare("SELECT * FROM pics WHERE `id`=?");
         $stmt->execute([$id]);
@@ -62,9 +72,18 @@ class Model_img extends Model {
         return ($pic);
     }
 
-    public function get_one_page() {
-        $stmt = $this->_db->prepare("SELECT * FROM pics ORDER BY `date`");
+    public function get_one_page($page) {
+        $range = $page * 10;
+        $stmt = $this->_db->prepare("SELECT * FROM pics ORDER BY `date` LIMIT ?, 9");
+        $stmt->bindParam(1, $range, PDO::PARAM_INT);
         $stmt->execute();
+        $pics = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return ($pics);
+    }
+
+    public function get_all_user_pics($id) {
+        $stmt = $this->_db->prepare("SELECT `name` FROM pics WHERE userid=?");
+        $stmt->execute([$id]);
         $pics = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return ($pics);
     }

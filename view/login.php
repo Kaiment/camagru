@@ -26,26 +26,27 @@
 
     <div class='row'>
         <div class='col-lg-4 offset-lg-4'>
-            <form class='auth_form' action='../controller/signin.php' method='post'>
+            <form id='auth_form' class='auth_form' action='../controller/signin.php' method='post'>
                 <div class='auth_text'>
                     <h3>Sign up</h3>
                     <h4>Create an account to share your photos and videos.</h4>
                 </div>
-                <input class='col-lg-8 offset-lg-2' placeholder='EMAIL' id='email' type='email' name='email' /><br />
-                <input class='col-lg-8 offset-lg-2' placeholder='LOGIN' id='login' type='text' name='login' /><br />
-                <input class='col-lg-8 offset-lg-2' placeholder='PASSWORD' id='password' type='password' name='password' /><br />
-                <input class='col-lg-8 offset-lg-2' placeholder='CONFIRM PASSWORD' id='confirm_password' type='password' name='confirm_password' /><br />
-                <input class='col-lg-6 offset-lg-3 menu_button' type='submit' name='submit' value='REGISTER' />
+                <input class='col-lg-8 offset-lg-2' placeholder='EMAIL' id='email' type='email' name='email' />
+                <input class='col-lg-8 offset-lg-2' placeholder='LOGIN' id='login' type='text' name='login' />
+                <input class='col-lg-8 offset-lg-2' placeholder='PASSWORD' id='password' type='password' name='password' />
+                <input class='col-lg-8 offset-lg-2' placeholder='CONFIRM PASSWORD' id='confirm_password' type='password' name='confirm_password' />
+                <input class='col-lg-6 offset-lg-3 menu_button' id='submit_register' type='submit' name='submit' value='REGISTER' />
                 <?php if (isset($_GET['register']) && $_GET['register'] === 'incomplete'): ?>
                     <p class='error'>You have to complete every fields.</p>
                 <?php elseif (isset($_GET['register']) && $_GET['register'] === 'confirm_fail'): ?>
                     <p class='error'>It seems like the 2 passwords you entered aren't the same. Please retry...</p>
                 <?php elseif (isset($_GET['register']) && $_GET['register'] === 'forbidden'): ?>
-                    <p class='error'>Your login or e-mail is already taken, please retry...</p
+                    <p class='error'>Your login or e-mail is already taken, please retry...</p>
                 <?php endif; ?>
             </form>
         </div>
     </div>
 </div>
 
+<script type='text/javascript' src='../public/js/login.js'></script>
 <?php require('footer.php'); ?>

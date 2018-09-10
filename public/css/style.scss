@@ -7,6 +7,8 @@ $positive_dark: #2a7735;
 $blue: #5380c4;
 $negative: #f09292;
 $negative_dark: #b42727;
+$warning: #f0d292;
+$warning_dark: #b48327;
 $grey: #cccccc;
 $grey_dark: #929191;
 
@@ -21,6 +23,13 @@ $basic_font: 'Comic sans MS';
 body {
     background-color: $main_color;
     color: $secondary_color;
+}
+
+label {
+    color: $main_color_dark;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .header {
@@ -146,7 +155,6 @@ body {
 }
 
 .control_bar{
-    height: 800px;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
     border-top: 1px solid $main_color;
@@ -193,7 +201,6 @@ body {
 }
 
 .content_container {
-    height: 800px;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
     border: 1px solid $main_color;
@@ -247,6 +254,17 @@ body {
     border-radius: 3px;
     background-color: $positive;
     color: $positive_dark;
+    padding: 5px;
+    margin-bottom: 0px;
+    font-family: monospace sans-serif;
+    font-size: 14px;
+}
+
+.warning {
+    border: 1px solid $warning_dark;
+    border-radius: 3px;
+    background-color: $warning;
+    color: $warning_dark !important;
     padding: 5px;
     margin-bottom: 0px;
     font-family: monospace sans-serif;
@@ -366,7 +384,6 @@ body {
 }
 
 .footer {
-    margin-top: 15vh;
     p {
         margin:0;
     }
@@ -385,6 +402,5 @@ body {
         text-align: center;
         font-size: 13px;
         color: $secondary_color;
-        background-color: $main_color_dark;
     }
 }

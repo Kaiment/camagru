@@ -53,26 +53,30 @@ function enable_publish() {
     }
 }
 
-function select_montage_img() {
+function select_montage_img(event) {
+    let e = event || window.event;
     montage_img = event.target.value;
     take_photo.disabled = false;
     choose_file.disabled = false;
-    submit_file.disabled = false;
 }
 
 // UPLOAD IMG
-submit_file.onclick = function() {
+choose_file.onchange = () => {
     if (!choose_file.files[0])
         return;
+    submit_file.disabled = false;
+}
+
+submit_file.onclick = function() {
     file = choose_file.files[0];
     publish.disabled = false;
     let reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.addEventListener("load", () => {
+    reader.addEventListener("load", function () {
         img_data = reader.result;
-    });
-    console.log(img_data);
-    //send_pic();
+        send_pic();
+        enable_publish();
+    }, false);
 }
 
 /*

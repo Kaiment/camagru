@@ -23,4 +23,10 @@ if (isset($_POST['old_pw'], $_POST['new_pw'], $_POST['confirm_new_pw'])) {
     else
         $controller->redirect_get("/view/account.php", ["edit_password" => "fail"]);
 }
+if (isset($_POST['notif'])) {
+    if ($_POST['notif'] != '0' && $_POST['notif'] != '1')
+        $controller->redirect_get("/view/account.php", ['edit_notif' => 'fail']);
+    else
+        $controller->switch_notif($_SESSION['user_id'], $_POST['notif']);
+}
 $controller->redirect_get("../view/account.php", []);

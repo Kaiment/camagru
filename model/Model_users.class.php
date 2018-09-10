@@ -35,6 +35,12 @@ class Model_users extends Model {
         return ($login['login']);
     }
 
+    public function get_email_by_id($userid) {
+        $stmt = $this->_db->prepare("SELECT email FROM users WHERE id=?");
+        $stmt->execute([$userid]);
+        return ($stmt->fetch(PDO::FETCH_ASSOC));
+    }
+
     // Returns user's password or FALSE if user is not found.
     public function get_user_pw($login) {
         $stmt = $this->_db->prepare("SELECT `password` FROM users WHERE `login`=?");
@@ -136,7 +142,21 @@ class Model_users extends Model {
         return ($notif['notif']);
     }
 
-    private function get_user_id_from_pic($pic_id) {
+    public function notif_enabled_by_userid($id) {
+        $stmt = $this->_db->prepare("SELECT notif FROM users WHERE id=?");
+        $stmt->execute([$id]);
+        $notif = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($notif['notif'])
+            return TRUE;
+        return FALSE;
+    }
+
+    public function switch_notif($id, $switch) {
+        $stmt = $this->_db->prepare("UPDATE users SET notif=? WHERE id=?");
+        $stmt->execute([$switch, $id]);
+    }
+
+    public function get_user_id_from_pic($pic_id) {
         $stmt = $this->_db->prepare("SELECT userid FROM pics WHERE id=?");
         $stmt->execute([$pic_id]);
         $userid = $stmt->fetch(PDO::FETCH_ASSOC);

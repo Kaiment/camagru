@@ -18,12 +18,14 @@ function send_like() {
     xhr.send("pic_id=" + pic_id + "&user_id=" + user_id);
 }
 
-like_btn.onclick = () => {
-    if (like_btn.className[2] == 'r')
-        like_btn.className = 'fas fa-heart';
-    else
-        like_btn.className = 'far fa-heart';
-    send_like();
+if (like_btn != null) {
+    like_btn.onclick = () => {
+        if (like_btn.className[2] == 'r')
+            like_btn.className = 'fas fa-heart';
+        else
+            like_btn.className = 'far fa-heart';
+        send_like();
+    }
 }
 
 comment_input.onkeypress = (keycode) => {

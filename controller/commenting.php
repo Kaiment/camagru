@@ -27,5 +27,6 @@ function send_notif($controller_users, $pic_id, $commenter_id, $commenter) {
     $subject = "Comment on your picture by $commenter";
     $txt = "Hi, $commenter commented your pic.";
     $header = "From: noreply@instalike.com" . "\r\n";
-    mail($controller_users->get_email_by_picid($pic_id), $subject, $txt, $header);
+    $dest = $controller_users->get_email_by_picid($pic_id);
+    mail($dest, $subject, $txt, $header);
 }

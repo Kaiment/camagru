@@ -21,6 +21,10 @@ class Controller_img extends Controller {
         return (TRUE);
     }
 
+    public function delete_img($pic_id) {
+        $this->_model_img->delete_img($pic_id);
+    }
+
     public function add_like($pic_id, $user_id) {
         if (!$this->get_pic($pic_id))
             return FALSE;
@@ -35,7 +39,14 @@ class Controller_img extends Controller {
     }
     
     public function get_pic_comments($pic_id) {
-        return ($this->_model_img->get_pic_comments($pic_id));
+        $comments = $this->_model_img->get_pic_comments($pic_id);
+        foreach ($comments as $k => $c) {
+            if (!$this->_model_users->get_user_by_id($c['userid'])) {
+                $this->_model_img->delete_userid_comments($c['userid']);
+                unset($comments[$k]);
+            }
+        }
+        return (array_values($comments));
     }
 
     public function has_already_liked($pic_id, $user_id) {
@@ -52,7 +63,11 @@ class Controller_img extends Controller {
         return (FALSE);
     }
 
-    public function get_one_page() {
-        return ($this->_model_img->get_one_page());
+    public function get_one_page($page) {
+        return ($this->_model_img->get_one_page($page));
+    }
+
+    public function get_all_user_pics($id) {
+        return ($this->_model_img->get_all_user_pics($id));
     }
 }

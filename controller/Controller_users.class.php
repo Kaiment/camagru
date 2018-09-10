@@ -9,7 +9,6 @@ class Controller_users extends Controller {
         $this->_table = 'users';
         $this->_model = new Model_users();
     }
-
     // Redirect to a page with associative array keys and values as $_GET
     public function redirect_get($path, array $data) {
         $gets = "";
@@ -25,8 +24,25 @@ class Controller_users extends Controller {
         return ($this->_model->get_user_by_id($id));
     }
 
+    public function get_email_by_picid($pic_id) {
+        $user_id = $this->_model->get_user_id_from_pic($pic_id);
+        $email = $this->_model->get_email_by_id($user_id);
+        if (!$email)
+            return FALSE;
+        return ($email['email']);
+    }
+
     public function notif_enabled($pic_id) {
         return ($this->_model->notif_enabled($pic_id));
+    }
+
+    public function notif_enabled_by_userid($user_id) {
+        return ($this->_model->notif_enabled_by_userid($user_id));
+    }
+
+    public function switch_notif($id, $switch) {
+        $this->_model->switch_notif($id, $switch);
+        $this->redirect_get("/view/account.php", ['edit_notif' => 'success']);
     }
 
     // Register user in database with hashed password
@@ -74,7 +90,6 @@ class Controller_users extends Controller {
             return (FALSE);
         return (TRUE);
     }
-
     // Reset user's password with new random token.
     public function reset_password($email) {
         if (!$this->_model->email_exists($email))
