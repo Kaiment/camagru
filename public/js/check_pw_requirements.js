@@ -2,9 +2,11 @@ var pass1 = document.querySelector("#password1");
 var pass2 = document.querySelector("#confirm_password");
 var submit = document.querySelector("#submit_register");
 
-submit.disabled = true;
+if (submit) {
+    submit.disabled = true;
+}
 
-if (pass1) {
+if (pass1 && pass2 && submit) {
     pass1.onkeyup = function (event) {
         let submit = document.querySelector("#submit_register");
         e = event || window.event;
@@ -17,18 +19,18 @@ if (pass1) {
             submit.disabled = true;
         }
     }
+}
 
-    function create_warning() {
-        if (document.querySelector("#warning_pw") !== null)
-            return;
-        let elem = document.createElement("p");
-        let text = document.createTextNode("Password needs to be at least 6 characters long and containing at least one digit");
-        elem.appendChild(text);
-        elem.setAttribute("id", "warning_pw");
-        elem.setAttribute("class", "col-lg-12 warning")
-        let form = document.querySelector("#auth_form");
-        form.appendChild(elem);
-    }
+function create_warning() {
+    if (document.querySelector("#warning_pw") !== null)
+        return;
+    let elem = document.createElement("p");
+    let text = document.createTextNode("Password needs to be at least 6 characters long and containing at least one digit");
+    elem.appendChild(text);
+    elem.setAttribute("id", "warning_pw");
+    elem.setAttribute("class", "col-lg-12 warning")
+    let form = document.querySelector("#auth_form");
+    form.appendChild(elem);
 }
 
 function delete_warning() {

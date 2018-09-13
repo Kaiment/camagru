@@ -9,7 +9,7 @@ $str = null;
 if (!empty($pics)) {
     $str = '';
     foreach ($pics as $pic) {
-        $img = "<img class='col-lg-3 img_galerie' src='../public/img/users/user".$_SESSION['user_id']."/".$pic['name'].".jpg'>";
+        $img = "<img id='".$pic['id']."' class='col-lg-3 img_galerie' onclick='delete_img(event)' src='../public/img/users/user".$_SESSION['user_id']."/".$pic['name'].".jpg'>";
         $str .= $img;
     }
 }
@@ -17,9 +17,10 @@ if (!empty($pics)) {
 ?>
 
 <div class="container-fluid content">
+    <div id='msg' class="row">
+    </div>
     <div class='row'>
         <div id='add_panel' class="col-lg-6 offset-lg-1 add_photo">
-
             <!-- SECTION VIDEO -->
             <div class='row'>
                 <div id='video_section' class="col-lg-8 offset-lg-2 col-md-12">
@@ -106,5 +107,6 @@ if (!empty($pics)) {
 </div>
 
 <script type="text/javascript" src='../public/js/cam.js'></script>
+<script type="text/javascript" src='../public/js/delete_img.js'></script>
 
 <?php require_once("footer.php"); ?>

@@ -7,7 +7,9 @@ if (!isset($_POST['login'], $_POST['password'], $_POST['confirm_password'], $_PO
     $controller->redirect_get("/view/login.php", ["register" => "incomplete"]);
 $login = strtolower($_POST['login']);
 $pw = $_POST['password'];
-if ($pw !== $_POST["confirm_password"])
+if (!preg_match('/[0-9]*/', $pw) || strlen($pw) < 6)
+    $controller->redirect_get("/view/login.php", ['register' => 'invalid_pw']);
+else if ($pw !== $_POST["confirm_password"])
     $controller->redirect_get("/view/login.php", ["register" => "confirm_fail"]);
 if ($controller->register_user($login, $pw, $_POST['email']))
     $controller->redirect_get('/view/login.php', ["register" => "success"]);

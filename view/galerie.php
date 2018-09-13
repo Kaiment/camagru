@@ -21,7 +21,10 @@ foreach ($pics as $k => $pic) {
     $pic_name = $pic['name'];
     $pic_id = $pic['id'];
     if (!file_exists("../public/img/users/user$author_id/$pic_name.jpg"))
+    {
         $controller_img->delete_img($pic_id);
+        continue ;
+    }
     $img = "<img class='img_galerie' src='../public/img/users/user$author_id/$pic_name.jpg'>";
     $link = "<a href='solo_pic.php?id=$pic_id'>";
     $pic_container = "$link$img</a>";

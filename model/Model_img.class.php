@@ -9,7 +9,7 @@ class Model_img extends Model {
         $stmt->execute([$user_id, strtolower($login), $name, $time]);
         if ($stmt->rowCount() < 1)
             return (FALSE);
-        return (TRUE);
+        return ($this->_db->lastInsertId());
     }
 
     public function add_like($pic_id, $user_id) {
@@ -82,7 +82,7 @@ class Model_img extends Model {
     }
 
     public function get_all_user_pics($id) {
-        $stmt = $this->_db->prepare("SELECT `name` FROM pics WHERE userid=?");
+        $stmt = $this->_db->prepare("SELECT `name`, id FROM pics WHERE userid=?");
         $stmt->execute([$id]);
         $pics = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return ($pics);

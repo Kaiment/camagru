@@ -40,6 +40,8 @@
                     <p class='error'>You have to complete every fields.</p>
                 <?php elseif (isset($_GET['register']) && $_GET['register'] === 'confirm_fail'): ?>
                     <p class='error'>It seems like the 2 passwords you entered aren't the same. Please retry...</p>
+                <?php elseif (isset($_GET['register']) && $_GET['register'] === 'invalid_pw'): ?>
+                    <p class='error'>Your password doesn't match the requirements. Please retry...</p>
                 <?php elseif (isset($_GET['register']) && $_GET['register'] === 'forbidden'): ?>
                     <p class='error'>Your login or e-mail is already taken, please retry...</p>
                 <?php endif; ?>

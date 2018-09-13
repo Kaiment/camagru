@@ -18,6 +18,7 @@ publish.disabled = true;
 
 choose_file.disabled = true;
 submit_file.disabled = true;
+
 // Data to send to server
 var img_data = null;
 var montage_img = null;
@@ -42,8 +43,11 @@ function enable_publish() {
         xhr.onreadystatechange = () => {
             if (xhr.readyState == 4) {
                 let saved = document.createElement("img");
-                saved.setAttribute('class', 'col-lg-3');
-                saved.src = xhr.response;
+                let data = JSON.parse(xhr.response);
+                saved.id = "" + data['id'];
+                saved.setAttribute('class', 'col-lg-3 img_galerie');
+                saved.setAttribute('onclick', 'delete_img(event)');
+                saved.src = data['base64'];
                 save_section.appendChild(saved);
                 publish.disabled = true;
             }

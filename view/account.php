@@ -1,6 +1,27 @@
 <?php require('header.php'); ?>
 
 <div class="container-fluid content">
+    <div class='row'>
+        <?php if (isset($_GET['edit_profile']) && $_GET['edit_profile'] === 'success'): ?>
+            <p class='success col-lg-6 offset-lg-3'>Login updated with success.</p>
+        <?php elseif (isset($_GET['edit_profile']) && $_GET['edit_profile'] === 'fail'): ?>
+            <p class='error col-lg-6 offset-lg-3'>Error happened while trying to change login.</p>
+        <?php elseif (isset($_GET['edit_email']) && $_GET['edit_email'] === 'success'): ?>
+            <p class='success col-lg-6 offset-lg-3'>Email updated with success.</p>
+        <?php elseif (isset($_GET['edit_email']) && $_GET['edit_email'] === 'fail'): ?>
+            <p class='error col-lg-6 offset-lg-3'>Error happened while trying to change email address.</p>
+        <?php elseif (isset($_GET['edit_password']) && $_GET['edit_password'] === 'invalid_pw'): ?>
+            <p class='error col-lg-6 offset-lg-3'>Password doesn't match requirements.</p>
+        <?php elseif (isset($_GET['edit_password']) && $_GET['edit_password'] === 'success'): ?>
+            <p class='success col-lg-6 offset-lg-3'>Password updated with success.</p>
+        <?php elseif (isset($_GET['edit_password']) && $_GET['edit_password'] === 'fail'): ?>
+            <p class='error col-lg-6 offset-lg-3'>Error happened while trying to change password</p>
+        <?php elseif (isset($_GET['edit_notif']) && $_GET['edit_notif'] === 'success'): ?>
+            <p class='success col-lg-6 offset-lg-3'>Notification preference updated with success.</p>
+        <?php elseif (isset($_GET['edit_notif']) && $_GET['edit_notif'] === 'fail'): ?>
+            <p class='error col-lg-6 offset-lg-1'>Error happened while trying to change notification preference</p>
+        <?php endif; ?>
+    </div>
     <div class="row">
         <div class="col-lg-2 offset-lg-3 control_bar">
             <div class="row"><a href="/view/account.php?edit_profile=y" class="col-lg-12 control_bar_button">EDIT LOGIN</a></div>
@@ -8,6 +29,7 @@
             <div class="row"><a href="/view/account.php?edit_password=y" class="col-lg-12 control_bar_button">CHANGE PASSWORD</a></div>
             <div class="row"><a href="/view/account.php?edit_notif=y" class="col-lg-12 control_bar_button">EDIT NOTIF</a></div>
         </div>
+        
         <div class="col-lg-4 content_container">
             <?php if (isset($_GET['edit_profile'])): ?>
                 <form class="auth_form" action="../controller/edit_profile.php" method="post">
@@ -33,11 +55,6 @@
                     </div>
                     <input class="menu_button" type="submit" value="UPDATE" />
                 </form>
-                <?php if (isset($_GET['edit_email']) && $_GET['edit_email'] == 'fail'): ?>
-                    <p class='error'>Password is incorrect or e-mail already exists.</p>
-                <?php elseif (isset($_GET['edit_email']) && $_GET['edit_email'] == 'success'): ?>
-                    <p class='success'>E-mail update successful.</p>
-                <?php endif; ?>
             <?php elseif (isset($_GET['edit_password'])): ?>
                 <form class="auth_form" id='auth_form' action="../controller/edit_profile.php" method="post">
                     <div class="row">
@@ -50,7 +67,7 @@
                     </div>
                     <div class="row">
                         <label for='confirm' class="col-lg-3 offset-lg-1">Confirm password</label>
-                        <input class="col-lg-7" type="password" id='confirm' name="confirm_new_pw" />
+                        <input class="col-lg-7" type="password" id='confirm_password' name="confirm_new_pw" />
                     </div>
                     <input id='submit_register' class="menu_button" type="submit" value="UPDATE" />
                 </form> 

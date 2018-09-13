@@ -16,8 +16,21 @@ class Controller_img extends Controller {
 
     public function add_pic($login, $token, $time) {
         $user_id = $this->_model_users->get_user_id($login);
-        if (!$this->_model_img->add_pic($user_id, $login, $token, $time))
+        return ($this->_model_img->add_pic($user_id, $login, $token, $time));
+    }
+
+    public function delete_pic($user_id, $pic_id) {
+        if (!$this->_model_users->get_user_by_id($user_id))
             return (FALSE);
+        $pic = $this->_model_img->get_pic($pic_id);
+        if (!$pic)
+            return (FALSE);
+        if ($user_id !== $pic['userid'])
+            return (FALSE);
+        $this->_model_img->delete_img($pic_id);
+        $pic_file = '../public/img/users/user'.$pic['userid'].'/'.$pic['name'].'.jpg';
+        if (file_exists($pic_file))
+            unlink($pic_file);
         return (TRUE);
     }
 
